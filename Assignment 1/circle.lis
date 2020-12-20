@@ -1,0 +1,191 @@
+     1                                  ;=====================================================================================================================================
+     2                                  ;Program Name: Circumference of Circle
+     3                                  ;Programming Language: x86 Assembly
+     4                                  ;Program Description: This program asks the user to input an integer, representing
+     5                                  ;the radius. It then uses basic arithmetic to calculate the circumference of a circle
+     6                                  ;using the following formula: circumference = 2 * radius * pi, where pi is 22/7.
+     7                                  
+     8                                  
+     9                                  ;Author: Justin Bui
+    10                                  ;Email: Justin_Bui12@csu.fullerton.edu
+    11                                  ;Institution: California State University, Fullerton
+    12                                  ;Course: CPSC 240-05
+    13                                  
+    14                                  ;Copyright (C) 2020 Justin Bui
+    15                                  ;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+    16                                  ;version 3 as published by the Free Software Foundation.
+    17                                  ;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+    18                                  ;Warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+    19                                  ;A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.
+    20                                  ;======================================================================================================================================
+    21                                  
+    22                                  	extern printf				;Getting external printf from driver program
+    23                                  	extern scanf			 	;Getting external scanf from driver program
+    24                                  	global start
+    25                                  
+    26                                  section .data
+    27                                  	;Defining all my variables
+    28 00000000 546869732063697263-     	authormessage db "This circle function is brought to you by Justin.", 10, 0
+    28 00000009 6C652066756E637469-
+    28 00000012 6F6E2069732062726F-
+    28 0000001B 7567687420746F2079-
+    28 00000024 6F75206279204A7573-
+    28 0000002D 74696E2E0A00       
+    29 00000033 506C6561736520656E-     	instruction db "Please enter the radius of a circle in whole number of meters: ", 0
+    29 0000003C 746572207468652072-
+    29 00000045 6164697573206F6620-
+    29 0000004E 6120636972636C6520-
+    29 00000057 696E2077686F6C6520-
+    29 00000060 6E756D626572206F66-
+    29 00000069 206D65746572733A20-
+    29 00000072 00                 
+    30 00000073 546865206E756D6265-     	numoutputformat db "The number %ld was received.", 10, 0
+    30 0000007C 7220256C6420776173-
+    30 00000085 207265636569766564-
+    30 0000008E 2E0A00             
+    31 00000091 4552524F523A20496E-     	invalidinput db "ERROR: Integer must be a positive value. Please try again", 10, 0
+    31 0000009A 7465676572206D7573-
+    31 000000A3 74206265206120706F-
+    31 000000AC 736974697665207661-
+    31 000000B5 6C75652E20506C6561-
+    31 000000BE 736520747279206167-
+    31 000000C7 61696E0A00         
+    32 000000CC 546865206369726375-     	quotientoutputformat db "The circumference of a circle with this radius is %ld.", 0
+    32 000000D5 6D666572656E636520-
+    32 000000DE 6F6620612063697263-
+    32 000000E7 6C6520776974682074-
+    32 000000F0 686973207261646975-
+    32 000000F9 7320697320256C642E-
+    32 00000102 00                 
+    33 00000103 20616E6420256C642F-     	remainderoutputformat db " and %ld/7 meters.", 10, 0
+    33 0000010C 37206D65746572732E-
+    33 00000115 0A00               
+    34 00000117 54686520696E746567-     	endprogram db "The integer part of the area will be returned to the main program. Please enjoy your circles.", 10, 0
+    34 00000120 65722070617274206F-
+    34 00000129 662074686520617265-
+    34 00000132 612077696C6C206265-
+    34 0000013B 2072657475726E6564-
+    34 00000144 20746F20746865206D-
+    34 0000014D 61696E2070726F6772-
+    34 00000156 616D2E20506C656173-
+    34 0000015F 6520656E6A6F792079-
+    34 00000168 6F757220636972636C-
+    34 00000171 65732E0A00         
+    35 00000176 257300                  	stringoutputformat db "%s", 0
+    36 00000179 256C6400                	signedintinputformat db "%ld", 0
+    37                                  
+    38                                  section .bss
+    39 00000000 <res 00000008>          	var1: resq 1				;Reserving 1 quadword for user input
+    40                                  
+    41                                  section .text
+    42                                  start:						;Assembly module
+    43 00000000 55                      	push rbp				;Alligning stack to 16 bits
+    44                                  
+    45                                  	;printing intro onto screen
+    46 00000001 48BF-                   	mov rdi, stringoutputformat
+    46 00000003 [7601000000000000] 
+    47 0000000B 48BE-                   	mov rsi, authormessage
+    47 0000000D [0000000000000000] 
+    48 00000015 B800000000              	mov rax, 0
+    49 0000001A E8(00000000)            	call printf
+    50                                  
+    51                                  promptUser:
+    52                                  
+    53                                  	;Prompting user for input
+    54 0000001F 48BE-                   	mov rsi, instruction
+    54 00000021 [3300000000000000] 
+    55 00000029 48BF-                   	mov rdi, stringoutputformat
+    55 0000002B [7601000000000000] 
+    56 00000033 B800000000              	mov rax, 0
+    57 00000038 E8(00000000)            	call printf
+    58                                  
+    59                                  takeInput:
+    60                                  
+    61                                  	;Taking radius by calling scanf
+    62 0000003D 48BF-                   	mov rdi, signedintinputformat
+    62 0000003F [7901000000000000] 
+    63 00000047 48BE-                   	mov rsi, var1
+    63 00000049 [0000000000000000] 
+    64 00000051 B800000000              	mov rax, 0
+    65 00000056 E8(00000000)            	call scanf
+    66                                  
+    67                                  	;Printing user input
+    68 0000005B 48BF-                   	mov rdi, numoutputformat		;"The number %ld was received"
+    68 0000005D [7300000000000000] 
+    69 00000065 488B3425[00000000]      	mov rsi, [var1]					;var1 is address. [var1] is value of address
+    70 0000006D B800000000              	mov rax, 0
+    71 00000072 E8(00000000)            	call printf
+    72                                  
+    73                                  	;Checking if user input is positive or negative
+    74 00000077 4C8B3425[00000000]      	mov r14, [var1]				;Moving user input into r14
+    75 0000007F 4983FE00                	cmp r14, 0					;Comparing r14 to 0
+    76 00000083 7E02                    	jle error					;Jump to error block if negative value
+    77 00000085 7F23                    	jg calculate				;Jump to calculate block if positive value
+    78                                  
+    79                                  
+    80                                  error:
+    81 00000087 48BF-                   	mov rdi, stringoutputformat
+    81 00000089 [7601000000000000] 
+    82 00000091 48BE-                   	mov rsi, invalidinput
+    82 00000093 [9100000000000000] 
+    83 0000009B B800000000              	mov rax, 0
+    84 000000A0 E8(00000000)            	call printf
+    85                                  
+    86 000000A5 E975FFFFFF              	jmp promptUser				;Looping back to taking input until
+    87                                  								;positive integer is entered
+    88                                  
+    89                                  
+    90                                  calculate:						;Performing arithmetic to find circumference
+    91                                  	;Multiply user input by 2
+    92 000000AA 41B902000000            	mov r9, 2					;Assigning 2 to r9
+    93 000000B0 488B0425[00000000]      	mov rax, [var1]				;Assigning user var1 into rax
+    94 000000B8 49F7E1                  	mul r9						;rax = rax * r9
+    95 000000BB 4989C4                  	mov r12, rax				;Updating rax as product
+    96                                  
+    97                                  	;Multiply above product by 22
+    98 000000BE 41BA16000000            	mov r10, 22					;Assigning r10 register as 22
+    99 000000C4 4C89E0                  	mov rax, r12				;Updating rax register, in case if overridden
+   100 000000C7 49F7E2                  	mul r10						;rax = rax * r10
+   101 000000CA 4989C4                  	mov r12, rax				;Updating rax after multiplying by 22
+   102                                  
+   103                                  	;Divide entire product by 7
+   104 000000CD BA00000000              	mov rdx, 0					;Assigning rdx (remainder) as 0 so far
+   105 000000D2 4C89E0                  	mov rax, r12				;Again updating rax in case if overriden
+   106 000000D5 41BB07000000            	mov r11, 7					;Assigning r11 as denominator
+   107 000000DB 49F7F3                  	div r11						;rax = rax / r11
+   108 000000DE 4989C4                  	mov r12, rax				;Assigning r12 as quotient 
+   109 000000E1 4989D5                  	mov r13, rdx				;Assigning r13 as remainder
+   110                                  
+   111                                  printCircumference:
+   112                                  	;Printing quotient
+   113 000000E4 48BF-                   	mov rdi, quotientoutputformat
+   113 000000E6 [CC00000000000000] 
+   114 000000EE 4C89E6                  	mov rsi, r12
+   115 000000F1 B800000000              	mov rax, 0
+   116 000000F6 E8(00000000)            	call printf
+   117                                  
+   118                                  	;Printing remainder
+   119 000000FB 48BF-                   	mov rdi, remainderoutputformat
+   119 000000FD [0301000000000000] 
+   120 00000105 4C89EE                  	mov rsi, r13				;Assigning rsi as remainder
+   121 00000108 4C89EA                  	mov rdx, r13				;Assigning rdx as remainder
+   122 0000010B B800000000              	mov rax, 0
+   123 00000110 E8(00000000)            	call printf
+   124                                  
+   125                                  endProgram:
+   126                                  	;Calling end to your program
+   127 00000115 48BF-                   	mov rdi, stringoutputformat
+   127 00000117 [7601000000000000] 
+   128 0000011F 48BE-                   	mov rsi, endprogram
+   128 00000121 [1701000000000000] 
+   129 00000129 B800000000              	mov rax, 0
+   130 0000012E E8(00000000)            	call printf
+   131                                  
+   132 00000133 5D                      	pop rbp					;Restoring stack
+   133                                  
+   134 00000134 4C89E0                  	mov rax, r12			;Assigning quotient to overrriden rax
+   135 00000137 C3                      	ret						;Program returns rax containing quotient
+   136                                  
+   137                                  
+   138                                  
+   139                                  
