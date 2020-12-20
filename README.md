@@ -13,5 +13,7 @@ Best of luck!
 ## About the Author
 
 Name: Justin Bui
+
 Email: Justin_Bui12@csu.fullerton.edu
+
 Institution: California State University, Fullerton
