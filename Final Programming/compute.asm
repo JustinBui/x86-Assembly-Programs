@@ -1,8 +1,48 @@
-;=======================================================================================;
-;                                   NAME: Justin Bu                                     ;
-;                                   DATE: 12/14/20                                      ;
-;                                   CWID:887956068                                      ;
-;=======================================================================================;
+;====================================================PROGRAM INFORMATION==============================================================
+;Program Name: Gross Pay
+;Programming Language: x86 Assembly
+;
+;General Purpose: This program asks the user to take in 2 floats: one for hours worked and 
+;                 another for pay rate per hour. The gross pay is then calculated. Anything
+;                 over 40 hours is considered over time, but will be added into the gross pay.
+;
+;File Description: compute.asm takes the user inputs and does all of the calculations.
+;                  Hours worked is multiplied with pay rate to determine gross pay. However,
+;                  if more than 40 hours is entered, it is considered overtime. Any hours overtime 
+;                  will be calculated by 0.5 * (Hours Worked - 40.0) * Pay Rate, which is then added to 
+;                  the gross pay from the regular hours. 
+;
+;Start Date: 14 December, 2020
+;
+;Compile: g++ -c -g -Wall -m64 -no-pie -o isfloat.o isfloat.cpp -std=c++17
+;         gcc -c -g -Wall -m64 -no-pie -o grosspay.o grosspay.c -std=c11
+;         nasm -g -F dwarf -f elf64 -o compute.o compute.asm         
+;Link: g++ -m64 -no-pie -o a.out -std=c++17 grosspay.o isfloat.o compute.o  
+;Execute: ./a.out
+;=====================================================================================================================================
+;
+;
+;=====================================================ABOUT THE AUTHOR================================================================
+;Author: Justin Bui
+;Email: Justin_Bui12@csu.fullerton.edu
+;Institution: California State University, Fullerton
+;Course: CPSC 240-05
+;=====================================================================================================================================
+;
+;
+;
+;======================================================COPYRIGHT/LICENSING============================================================
+;Copyright (C) 2020 Justin Bui
+;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+;version 3 as published by the Free Software Foundation.
+;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+;Warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+;A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.
+;=====================================================================================================================================
+
+
+;==========================================================START OF MODULE============================================================
+
 extern scanf
 extern printf
 extern atof
@@ -21,11 +61,12 @@ section .data
 
 
 section .bss
+    ;Nothing is defnied here
 
 section .text
 compute:
 
-    ;16 Pushes
+    ;============================================16 PUSHES===============================================
     push rbp
     mov rbp, rsp 
     push rdi 
@@ -45,7 +86,7 @@ compute:
     push rax
 
 input:
-    ;=============================================HOURS=============================================
+    ;==========================================INPUT HOURS=============================================
 
     ;Telling user to input hours worked
     xor rax, rax
@@ -79,7 +120,7 @@ tryAgain1:
     pop r15             ;Pop to make up for scanf
     
 
-    ;=============================================PAY RATE=============================================
+    ;=========================================INPUT PAY RATE=============================================
     mov r12, 0                      ;Reset iterator
 
 
@@ -148,37 +189,45 @@ invalid2:
     inc r12
     jmp tryAgain2
 
-    ;=========================================CALCULATE==========================================
+    ;===========================================CALCULATE============================================
 
 arithmetic:
-    ;xmm15 is the hours worked
-    ;xmm14 is the pay rate
+                        ;xmm15 is the hours worked
+                        ;xmm14 is the pay rate
+
     mov r15, 0x4044000000000000     ;40.0
     movq xmm13, r15
 
-    ucomisd xmm15, xmm13            ;Comparing if it is over time
+    ;Comparing if it is over time
+    ucomisd xmm15, xmm13
     ja overtime
     jmp nonOvertime
 
+    ;===========================================OVERTIME============================================
+
 overtime:
    
+    ;0.5 * (Hours Worked - 40.0) * Pay Rate
 
-    movsd xmm11, xmm15          ; copy hours to xmm11
-    subsd xmm11, xmm13          ; sub 40 from hours
-    mulsd xmm11, xmm14          ; multiply by pay rate
+    ;Calculating overtime hours
+    movsd xmm11, xmm15              ;Making a copy of hours
+    subsd xmm11, xmm13              ;Hours worked - 40.0
+    mulsd xmm11, xmm14              ;Multiply difference by pay rate
 
     mov r15, 0x3FE0000000000000     ;0.5
-    movq xmm12, r15
+    movq xmm12, r15                 ;Moving 0.5 into an xmm register
+    mulsd xmm11, xmm12              ;multiply overtime hours by 0.5 (Cutting them in half)
 
-    mulsd xmm11, xmm12          ; multiply overtime hours by 0.5 
-
-    mulsd xmm15, xmm14          ; multiply hours by pay rate
-
-    addsd xmm15, xmm11          ; add overtime pay to gross 
+    ;Calculating regular hours 40 or under
+    mulsd xmm15, xmm14              ;multiply hours by pay rate
+    addsd xmm15, xmm11              ;add overtime pay to gross 
 
     jmp end
 
+    ;=========================================NOT OVER TIME==========================================
+
 nonOvertime:
+    ;Hours worked * pay rate
     mulsd xmm15, xmm14
     jmp end 
 
@@ -204,9 +253,9 @@ end:
 
 return:
 
-    movsd xmm0, xmm15       ;Returning
+    movsd xmm0, xmm15       ;Returning the gross pay 
 
-    ;16 pops
+    ;==============================================16 POPS=================================================
     pop rax
     popf
     pop rbx
@@ -226,3 +275,4 @@ return:
 
     ret
     
+    ;===========================================END OF MODULE================================================

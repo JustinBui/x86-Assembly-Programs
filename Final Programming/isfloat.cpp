@@ -1,5 +1,5 @@
 //====================================================PROGRAM INFORMATION==============================================================
-//Program Name: Area of Triangle
+//Program Name: Gross Pay
 //Programming Language: C++
 //
 //General Purpose: This program asks the user to enter 3 quardword floats to represent the length of
@@ -8,6 +8,8 @@
 //
 //File Description: isfloat.cpp takes in an array of characters to determine if the input
 //                  is a valid floating point number. If so, return true. If not, return false.
+//
+//Start Date: 10 November, 2020
 //
 //Compile: g++ -c -g -Wall -m64 -no-pie -o isfloat.o isfloat.cpp -std=c++17
 //         gcc -c -g -Wall -m64 -no-pie -o triangle.o triangle.c -std=c11
@@ -22,7 +24,6 @@
 //Email: Justin_Bui12@csu.fullerton.edu
 //Institution: California State University, Fullerton
 //Course: CPSC 240-05
-//Start Date: 10 November, 2020
 //=====================================================================================================================================
 //
 //
@@ -37,14 +38,10 @@
 //======================================================================================================================================
 
 
-
-//NAME: Justin Bui
-//DATE: Dec 14
-//CWID: 887956068
-
-//Reference from assignment 5
-
 //===============================================START OF MODULE=========================================================================
+
+//NOTE: This is a reference from assignment 5
+
 #include<stdio.h>
 #include<string>
 #include<cctype>

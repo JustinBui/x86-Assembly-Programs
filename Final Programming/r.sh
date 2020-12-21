@@ -1,6 +1,8 @@
-# //NAME: Justin Bui
-# //DATE: Dec 14
-# //CWID: 887956068
+#!/bin/bash
+
+#Author: Justin Bui 
+#Program name: Array Sort
+#Language: Bash
 
 rm *.o, *.out
 
