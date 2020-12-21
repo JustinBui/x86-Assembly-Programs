@@ -25,7 +25,7 @@ Each folder contains a bash file either called r.sh or run.sh to compile
 or assemble each C/C++/Assembly file. Don't worry about compiling/assembling
 each manually.
 
-To make your life easier, I have included bash files either named r.sh or
+To make your life easier, I have included Bash files either named r.sh or
 run.sh that does just that. If you are using a linux environment, type in
 r.sh or run.sh (Depending on the name of each bash file) in your shell to
 run each program.
