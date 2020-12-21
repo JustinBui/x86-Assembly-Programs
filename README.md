@@ -26,6 +26,6 @@ or assemble each C/C++/Assembly file. Don't worry about compiling/assembling
 each manually.
 
 To make your life easier, I have included Bash files either named r.sh or
-run.sh that does just that. If you are using a Linux environment, type in
-r.sh or run.sh (Depending on the name of each bash file) in your shell to
-run each program.
+run.sh that does just that. If you are using a Linux environment, type in "sh
+r.sh" or "sh run.sh" wihout the quotes (Depending on the name of each bash file) 
+in your shell torun each program.
