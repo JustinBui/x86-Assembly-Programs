@@ -1,10 +1,5 @@
-//NAME:Justin Bui
-//CPSC 240-05 MIDTERM
-
-
-
 //=====================================================================================================================================
-//Program Name: Arrays
+//Program Name: Reverse an Array
 //Programming Language: C++
 //File Description: This takes in the array defined in manager.asm and current amount of items in array to print out each
 //integer in the array.
@@ -23,6 +18,8 @@
 //A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.
 //======================================================================================================================================
 
+//==================================================START OF MODULE======================================================================
+//Note: Reference from assignment 2
 #include<stdio.h>
 using namespace std;
 
@@ -34,3 +31,4 @@ void display_array(long array[], long amount){
 	}
 	printf("\n\n");
 }
+//==================================================END OF MODULE======================================================================

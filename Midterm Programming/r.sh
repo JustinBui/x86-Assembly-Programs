@@ -1,5 +1,8 @@
-#NAME: Justin Bui
-#CPSC 240-05 MIDTERM 
+#!/bin/bash
+
+#Author: Justin Bui 
+#Program name: Array Sort
+#Language: Bash
 
 rm *.o, *.out
 

@@ -1,5 +1,37 @@
-;NAME: Justin Bui
-;CPSC 240-05 MIDTERM
+;====================================================PROGRAM INFORMATION==============================================================
+;Program Name: Reverse an Array
+;Programming Language: x86 Assembly
+;
+;General Purpose: This program asks the user to input some integers into an array. It then displays 
+;				  all numbers in the array but sorted. It then displays that same array in inverse.
+;
+;File Description: input_array.asm asks the user to input as many integers as they can until ctrl+d
+;				   is pressed. Anything that is not a valid integer will not be put into the array
+;				   from the input validations it makes for each number.
+;
+;Start Date: 26 November, 2020
+;=====================================================================================================================================
+;
+;
+;=====================================================ABOUT THE AUTHOR================================================================
+;Author: Justin Bui
+;Email: Justin_Bui12@csu.fullerton.edu
+;Institution: California State University, Fullerton
+;Course: CPSC 240-05
+;=====================================================================================================================================
+;
+;
+;
+;======================================================COPYRIGHT/LICENSING============================================================
+;Copyright (C) 2020 Justin Bui
+;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+;version 3 as published by the Free Software Foundation.
+;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+;Warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+;A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.
+;=====================================================================================================================================
+
+;==========================================================START OF MODULE============================================================
 
 extern scanf
 extern printf
@@ -112,10 +144,6 @@ ctrlD:
 
 exitProgram:
 
-	; mov rax, 0
-	; mov rdi, stringOutputFormat
-	; mov rsi, debugger
-	; call printf
 
 	mov qword rax, r12				;Backing up r12 into rax to be returned
 
@@ -137,4 +165,5 @@ exitProgram:
 	pop rbx
 
 	ret                                               
+	;==========================================================END OF MODULE============================================================
 

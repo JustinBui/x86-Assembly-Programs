@@ -1,5 +1,27 @@
-;NAME: Justin Bui
-;CPSC 240-05 MIDTERM
+;=====================================================================================================================================
+;Program Name: Array Sort
+;Programming Language: x86 Assembly
+;File Description: read_clock.asm reads how many tics he CPU made before the program starts then after the program ends.
+;				   This is used to measure how long it took to run the sorting algorithms. This is a reference from assignemnt 3.
+;General Purpose: This program asks the user to input integers into an array to get it sorted in ascending order. Display 
+;				  this array before sort and after. 
+
+
+;Author: Justin Bui
+;Email: Justin_Bui12@csu.fullerton.edu
+;Institution: California State University, Fullerton
+;Course: CPSC 240-05
+;Start Date: 25 October, 2020
+
+;Copyright (C) 2020 Justin Bui
+;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+;version 3 as published by the Free Software Foundation.
+;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+;Warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+;A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.
+;======================================================================================================================================
+
+;==========================================================START OF MODULE============================================================
 
 extern printf
 extern scanf
@@ -67,3 +89,5 @@ end_clock:
 
 
 	ret                                               	    
+
+;==========================================================END OF MODULE============================================================
