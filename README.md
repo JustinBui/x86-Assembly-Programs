@@ -28,4 +28,4 @@ each manually.
 To make your life easier, I have included Bash files either named r.sh or
 run.sh that does just that. If you are using a Linux environment, type in "sh
 r.sh" or "sh run.sh" wihout the quotes (Depending on the name of each bash file) 
-in your shell torun each program.
+in your shell to run each program.
